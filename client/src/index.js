@@ -5,6 +5,9 @@ import App from "./components/App";
 import Profile from "./components/Profile";
 import Achievements from "./components/achievementItems/Achievements";
 import Tasks from "./components/Tasks";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
+
 import { BrowserRouter } from "react-router-dom";
 
 import "./styles/app.less"
@@ -46,6 +49,9 @@ export default function Index() {
 					<Route path="/profile" component={Profile} />
 					<Route path="/tasks" component={Tasks} />
 					<Route path="/achivements" component={Achievements} />
+					<Route path="/login" component={Login} />
+					<Route path="/register" component={Register} />
+
 					<Route path="/" >
 
 						<App />
