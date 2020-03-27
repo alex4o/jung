@@ -5,12 +5,10 @@ import { observer } from "mobx-react";
 import db from "../stores/db"
 import { usePromise } from "../utils";
 
-import { useAsync } from "react-use"
-
 export default function App() {
     let state = usePromise( db.get("0389dc2c1840a65e74d1ec1cf9006bfe") )
     console.log(state)
-    
+
     return (
         <div>
             {JSON.stringify(state)}
