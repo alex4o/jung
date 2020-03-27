@@ -46,9 +46,7 @@ export default function Index() {
 					<Route path="/tasks" component={Tasks} />
 					<Route path="/achivements" component={Achievements} />
 					<Route path="/" >
-						<Suspense fallback={<div>Loading...</div>}>
-							<App />
-						</Suspense>
+						<App />
 					</Route>
 				</Switch>
 			</div>
