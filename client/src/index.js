@@ -2,6 +2,8 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 
 import App from "./components/App";
+import Profile from "./components/Profile";
+import Achievements from "./components/Achievements";
 import Tasks from "./components/Tasks";
 import { BrowserRouter } from "react-router-dom";
 
@@ -15,17 +17,7 @@ import {
 } from "react-router-dom";
 
 
-function Home() {
-	return <h2>Home</h2>;
-}
 
-function About() {
-	return <h2>About</h2>;
-}
-
-function Users() {
-	return <h2>Users</h2>;
-}
 
 export default function Index() {
 	return (
@@ -52,9 +44,9 @@ export default function Index() {
 				</nav>
 
 				<Switch>
-					<Route path="/profile" component={About} />
+					<Route path="/profile" component={Profile} />
 					<Route path="/tasks" component={Tasks} />
-					<Route path="/achivements" component={About} />
+					<Route path="/achivements" component={Achievements} />
 					<Route path="/" component={App} />
 				</Switch>
 			</div>
