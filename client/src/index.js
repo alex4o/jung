@@ -20,6 +20,7 @@ import {
 
 export default function Index() {
 
+
 	return (
 		<Router>
 			<div>
@@ -46,7 +47,9 @@ export default function Index() {
 					<Route path="/tasks" component={Tasks} />
 					<Route path="/achivements" component={Achievements} />
 					<Route path="/" >
+
 						<App />
+
 					</Route>
 				</Switch>
 			</div>

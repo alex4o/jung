@@ -1,3 +1,6 @@
+import { useAsync } from "react-use"
+
+
 export function wrapPromise(promise) {
     let status = 'pending'
     let response
@@ -31,4 +34,9 @@ export function delay(time) {
     new Promise((resolve, reject) => {
         setTimeout(resolve, time)
     });
+}
+
+
+export function usePromise(promise, deps) {
+    return useAsync( async () => { await promise }, deps )
 }
