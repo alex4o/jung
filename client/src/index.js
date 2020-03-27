@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 
 import App from "./components/App";
 import Profile from "./components/Profile";
-import Achievements from "./components/Achievements";
+import Achievements from "./components/achievementItems/Achievements";
 import Tasks from "./components/Tasks";
 import { BrowserRouter } from "react-router-dom";
 
