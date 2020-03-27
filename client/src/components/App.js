@@ -2,22 +2,19 @@ import React, { Component } from "react";
 import { DatePicker, Button } from 'antd';
 import { observer } from "mobx-react";
 
-@observer
-export default class App extends Component {
-    constructor(props) {
-        super(props)
+import db from "../stores/db"
+import { wrapPromise } from "../utils/utils";
 
+const returned = wrapPromise(db.get("0389dc2c1840a65e74d1ec1cf9006bfe"))
 
-    }
-    render() {
-        return (
-            <div>
-
-                <DatePicker />
-                <Button type="primary" style={{ marginLeft: 8 }}>
-                    Primary Button
+export default function App() {
+    return (
+        <div>
+            { JSON.stringify(returned.read()) }
+            <DatePicker />
+            <Button type="primary" style={{ marginLeft: 8 }}>
+                Primary Button
                 </Button>
-            </div>
-        )
-    }
+        </div>
+    )
 }

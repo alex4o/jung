@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { Suspense } from "react";
 import * as ReactDOM from "react-dom";
 
 import App from "./components/App";
@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router-dom";
 
 import "./styles/app.less"
 
+
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -17,15 +18,14 @@ import {
 } from "react-router-dom";
 
 
-
-
 export default function Index() {
+
 	return (
 		<Router>
 			<div>
 				<nav>
-					<ul>
 
+					<ul>
 						<li>
 							<Link to="/">Home</Link>
 						</li>
@@ -38,8 +38,6 @@ export default function Index() {
 						<li>
 							<Link to="/achivements">Achivements</Link>
 						</li>
-
-
 					</ul>
 				</nav>
 
@@ -47,7 +45,11 @@ export default function Index() {
 					<Route path="/profile" component={Profile} />
 					<Route path="/tasks" component={Tasks} />
 					<Route path="/achivements" component={Achievements} />
-					<Route path="/" component={App} />
+					<Route path="/" >
+						<Suspense fallback={<div>Loading...</div>}>
+							<App />
+						</Suspense>
+					</Route>
 				</Switch>
 			</div>
 		</Router>
