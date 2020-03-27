@@ -3,7 +3,7 @@ import { DatePicker, Button } from 'antd';
 import { observer } from "mobx-react";
 
 import db from "../stores/db"
-import { wrapPromise } from "../utils/utils";
+import { wrapPromise } from "../utils";
 
 const returned = wrapPromise(db.get("0389dc2c1840a65e74d1ec1cf9006bfe"))
 

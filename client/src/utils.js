@@ -28,7 +28,7 @@ export function wrapPromise(promise) {
 }
 
 export function delay(time) {
-    new Promise((resolve, reject) {
+    new Promise((resolve, reject) => {
         setTimeout(resolve, time)
     });
 }
