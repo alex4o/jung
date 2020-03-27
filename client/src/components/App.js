@@ -3,7 +3,7 @@ import { DatePicker, Button } from 'antd';
 import { usePromise } from "mobx-react";
 
 import db from "../stores/db"
-// import { usePromise } from "../utils";
+import { usePromise } from "../utils";
 
 export default function App() {
     let state = usePromise( db.get("0389dc2c1840a65e74d1ec1cf9006bfe") )
