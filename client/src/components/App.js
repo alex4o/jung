@@ -11,7 +11,7 @@ export default function App() {
 
     return (
         <div>
-            {JSON.stringify(state)}
+            {state.loading ? "Loading ..." : JSON.stringify(state.value)}
             <DatePicker />
             <Button type="primary" style={{ marginLeft: 8 }}>
                 Primary Button
