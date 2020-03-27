@@ -38,5 +38,5 @@ export function delay(time) {
 
 
 export function usePromise(promise, deps) {
-    return useAsync( async () => { await promise }, deps )
+    return useAsync( async () => { return await promise }, deps )
 }
