@@ -5,10 +5,10 @@ import App from "./components/App";
 import Profile from "./components/Profile";
 import Achievements from "./components/achievementItems/Achievements";
 import Tasks from "./components/Tasks";
-import { BrowserRouter } from "react-router-dom";
+import LandingPage from "./components/homepage/LandingPage"
+import Navbar from "./components/Navbar"
 
 import "./styles/app.less"
-
 
 import {
 	HashRouter as Router,
@@ -24,32 +24,14 @@ export default function Index() {
 	return (
 		<Router>
 			<div>
-				<nav>
-
-					<ul>
-						<li>
-							<Link to="/">Home</Link>
-						</li>
-						<li>
-							<Link to="/profile">Profile</Link>
-						</li>
-						<li>
-							<Link to="/tasks">Tasks</Link>
-						</li>
-						<li>
-							<Link to="/achivements">Achivements</Link>
-						</li>
-					</ul>
-				</nav>
-
+				<Navbar/>
 				<Switch>
 					<Route path="/profile" component={Profile} />
 					<Route path="/tasks" component={Tasks} />
 					<Route path="/achivements" component={Achievements} />
+					<Route path="/home" component={LandingPage}/>
 					<Route path="/" >
-
 						<App />
-
 					</Route>
 				</Switch>
 			</div>
