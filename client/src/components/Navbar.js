@@ -51,12 +51,12 @@ export default function Navbar() {
 			<Menu style={{ float: 'right' }} theme={theme}>
 				<Menu.Item key="signup">
 					<MailOutlined />
-					<Link to="#">Sign-up</Link>
+					<Link to="/register">Sign-up</Link>
 				</Menu.Item>
 
 				<Menu.Item key="login">
 					<LoginOutlined/>
-					<Link to="#">Log in.</Link>
+					<Link to="/login">Log in.</Link>
 				</Menu.Item>
 			</Menu>
 		</Menu>
