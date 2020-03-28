@@ -1,12 +1,12 @@
 import React from "react";
-import {Col, Row, Divider} from "antd";
+import {Col, Row, Drawer, Button, Card} from "antd";
 
 export default function Achievements() {
     
 
 	const element = <h1>Hello, world</h1>;
-	var element1 = What();
-	var element2 = createDivider(1, element1);
+
+	var element2 = createDrawer();
 	return element2;
 }
 
@@ -51,13 +51,18 @@ function What() {
 	);
 }
 
-function createDivider(num, Components){
+function createCard(){
 
 	return(
 
-		<Divider>
-			{Components}
-		</Divider>
+		
+			<Card title={"Title"}>
+				
+				<h1> This is an achievement </h1>
+				
+			</Card>
+
+		
 	);
 
 }
