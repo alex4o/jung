@@ -1,7 +1,24 @@
 import React from "react";
 import { Row, Col, Typography, Avatar, Progress, Divider } from "antd";
 import { UserOutlined } from '@ant-design/icons'
+import { db } from "../stores/db"
+import { observer, useObserver } from "mobx-react";
+import useStores from "../hooks/useStores";
+
+
+function useUserData() {
+    const { username } = useStores()
+    console.log(useStores());
+    console.log(username);
+
+
+    return useObserver(() => ({
+        username: username,
+    }))
+}
+
 export default function Profile() {
+    const { username } = useUserData();
     return (
         <div className="profile-page">
             <Row type="flex" justify="center" align="top" style={{ minHeight: '100vh', backgroundColor: '#fefefe', padding: '50px', borderRadius: '25px' }}>
@@ -19,7 +36,7 @@ export default function Profile() {
                     </Row>
                     <Row type="flex" justify="center">
                         <Col>
-                            <Typography.Text style={{ fontSize: '16pt' }} >Masov Pederasov</Typography.Text>
+                            <Typography.Text style={{ fontSize: '16pt' }} >{username}</Typography.Text>
                         </Col>
                     </Row>
                     <Row type="flex" justify="center">
@@ -42,6 +59,5 @@ export default function Profile() {
                 </Col>
             </Row>
         </div>
-    );
-
-}
+    )
+};
