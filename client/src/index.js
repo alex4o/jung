@@ -39,7 +39,7 @@ export default function Index() {
 								<Route path="/achivements" component={Achievements} />
 								<Route path="/home" component={LandingPage} />
 								<Route path="/login" component={Login}></Route>
-					<Route path="/register" component={Register}></Route>
+								<Route path="/register" component={Register}></Route>
 
 								<Route path="/" >
 									<App />
