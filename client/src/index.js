@@ -10,7 +10,6 @@ import Navbar from "./components/Navbar"
 import Login from "./components/auth/Login"
 import Register from "./components/auth/Register"
 
-
 import "./styles/app.less"
 
 import {
@@ -20,9 +19,9 @@ import {
 } from "react-router-dom";
 
 import { Layout, Col, Row } from "antd";
+import { Provider, useLocalStore } from "mobx-react";
 
 export default function Index() {
-
 
 	return (
 		<Router>

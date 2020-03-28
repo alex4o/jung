@@ -7,7 +7,18 @@ export default function Register() {
 
     const onFinish = values => {
         if (values.password === values.passwordConfirm) {
-            db.signUp(values.username, values.password, (err, response) => {
+            db.signUp(values.username, values.password,
+                {
+                    metadata:{
+                        achievements:[],
+                        email:"-1",
+                        level:"1",
+                        totalExp:0,
+                        expToNextLevel:100,
+                        
+                    }
+                },
+                 (err, response) => {
                 if (err) {
                     console.log(err);
                 } else {
