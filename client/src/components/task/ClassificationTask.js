@@ -1,15 +1,28 @@
 import React, { useState } from 'react'
-import { Row, Col, Button, Divider } from 'antd'
+import { Row, Col, Button, Divider, notification } from 'antd'
 
-function classify() {
-    
-}
+import { usePromise, Loadable } from '../../utils'
+import { db } from '../../stores/db'
 
+let allTasks = []
 
-function ClassificationButton({ value, currentImage }) {
-    
+function ClassificationButton({ value, stateManager, currentImage, timesClicked, setClickedTimes }) {
+
+    let [ bonus, setBonus ] = useState(5)
+
     let classify = () => {
-        // Get a random not classified image
+        setClickedTimes(timesClicked + 1);
+        if (timesClicked % 6 == 0 && timesClicked != 0) {
+            setBonus(Math.floor(bonus * 1.5));
+            notification.info({
+                message: "Nice",
+                description: "Good Work, You are on a streak!\n " + timesClicked + " and counting! " + bonus + " Bonus XP awarded!",
+                placement: "bottomRight"
+            })
+        }
+
+        let index = Math.floor(Math.random()*100) % allTasks.length
+        stateManager(allTasks[index])
     }
 
     return(
@@ -21,45 +34,54 @@ function ClassificationButton({ value, currentImage }) {
     )
 }
 
+function ClassificationView({ props, value }) {
+
+    let [ currentTask, setCurrentTask ] = useState(value[0])
+    let [ numberOfTimesClicked, setClickedTimes ] = useState(0)
+    let [ currentImageUrl, setImage ] = useState()
+
+    return(
+        <Col>
+            <Row>
+                <img style={{ objectFit: "cover", flex: 1, width: "100%", borderRadius: "15px" }}
+                src={`http://fortress88.servebeer.com:5984/jung/${currentTask.id}/${Object.keys(currentTask.value.doc._attachments)[0]}`}/>
+            </Row>
+            <Divider/>
+            <Row>
+                {props.classes.map((el, i) => <ClassificationButton 
+                    timesClicked={numberOfTimesClicked}
+                    setClickedTimes={setClickedTimes}
+                    stateManager={setCurrentTask}
+                    key={i} 
+                    value={el}
+                    />)}
+            </Row>
+        </Col>)
+}
+
 export default function ClassificationTask(props) {
     /**
      * Classification JSON
      * {
      *     type: "classification"
      *     image: url string,
-     *     classes: [ array of strings ], 
+     *     classes: [ array of strings ],
      *     label: "" or string,
      *     timesClassified: X,
      *     classified: boolean
      * }
      */
+    
     props = {
         classes: [ "airplane", "car", "boat", "truck" ]
     }
 
-    let [ currentImageUrl, setImage ] = useState()
+    let { loading, value } = usePromise(db.query("tables/task-view", { include_docs: true }).then(result => {
+        allTasks = result.rows
+        return result.rows
+    }));
     
-
     return (
-        <Col>
-            <Row>
-                <img src={currentImageUrl}>
-                </img>
-            </Row>
-            <Row>
-                {props.classes.map((el, i) => <ClassificationButton key={i} value={el}/>)}
-                <Divider type={"vertical"} style={{ backgroundColor: "#AAA", height: "30px" }} />
-                <Col style={{ marginRight: 10 }}>
-                    <Button type="primary" shape="round" size="big">
-                        Next
-                    </Button>
-                </Col>
-                <Col>
-                    <Button type="primary" shape="round" size="big">
-                        Done
-                    </Button>
-                </Col>
-            </Row>
-        </Col>
+        <Loadable loading={loading} loaded={() => <ClassificationView props={props} value={value}/>}/>
     )
 } 

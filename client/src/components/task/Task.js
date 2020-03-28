@@ -10,13 +10,13 @@ import {
 } from "react-router-dom";
 
 import { db } from "../../stores/db"
-import { Row, Tag, Button, Col, Card, List, PageHeader, Empty, Icon } from 'antd';
+import { Row, Tag, Button, Col, Card, List, PageHeader, Empty, Icon, Divider } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { Loadable, usePromise } from "../../utils"
 import ClassificationTask from './ClassificationTask'
 
 const taskViewHashMap = {
-	"classification" : <ClassificationTask/>,
+	"classification" : (props) => <ClassificationTask props={props}/>,
 }
 
 export function Task() {
@@ -45,15 +45,14 @@ export function Task() {
 					</Button>
 				]}
 				tags={<Tag color="blue">Running</Tag>} >
-				<Row>
+				<Row justify='center'>
 					{document.value._attachments && !working ? 
                     <img
 						style={{ objectFit: "cover", flex: 1, width: "100%" }}
 						alt="logo"
 						src={`http://fortress88.servebeer.com:5984/jung/${id}/${Object.keys(document.value._attachments)[0]}`}
 					/> : <></>}
-
-					{ working ? taskViewHashMap[type] : <></>}
+					{ working ? taskViewHashMap[type](document.value) : <></>}
 				</Row>
 				
 			</PageHeader>

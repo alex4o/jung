@@ -36,9 +36,6 @@ function TaskList() {
 
 	console.log(docs)
 
-	
-
-
 	return (
 		<List itemLayout="vertical" loading={docs.loading} dataSource={docs.loading ? [] : docs.value.rows} active="true" renderItem={it => <List.Item
 			style={{ boxSizing: "border-box", flex: "1" }}
