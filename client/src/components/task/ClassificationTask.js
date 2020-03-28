@@ -6,12 +6,13 @@ import { db } from '../../stores/db'
 
 let allTasks = []
 
-function ClassificationButton({ value, stateManager, currentImage, timesClicked, setClickedTimes }) {
+function ClassificationButton({ currentTask, value, stateManager, timesClicked, setClickedTimes }) {
 
     let [ bonus, setBonus ] = useState(5)
 
     let classify = () => {
         setClickedTimes(timesClicked + 1);
+
         if (timesClicked % 6 == 0 && timesClicked != 0) {
             setBonus(Math.floor(bonus * 1.5));
             notification.info({
@@ -22,6 +23,12 @@ function ClassificationButton({ value, stateManager, currentImage, timesClicked,
         }
 
         let index = Math.floor(Math.random()*100) % allTasks.length
+
+        currentTask.value.doc.labels.push(value)
+        currentTask.value.doc.timesClassified += 1
+        db.put(currentTask.value.doc)
+
+        
         stateManager(allTasks[index])
     }
 
@@ -52,6 +59,7 @@ function ClassificationView({ props, value }) {
                     timesClicked={numberOfTimesClicked}
                     setClickedTimes={setClickedTimes}
                     stateManager={setCurrentTask}
+                    currentTask={currentTask}
                     key={i} 
                     value={el}
                     />)}
