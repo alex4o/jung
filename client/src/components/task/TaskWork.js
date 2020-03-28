@@ -1,4 +1,4 @@
-import React, { useProps, useState } from "react";
+import React, { useProps } from "react";
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -14,19 +14,9 @@ import { Row, Tag, Button, Col, Card, List, PageHeader, Empty, Icon } from 'antd
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { Loadable, usePromise } from "../../utils"
 
-
-
-export function Task() {
+export function TaskWork() {
 	let { id } = useParams();
 	let document = usePromise(tasks.get(id))
-	let [ working, setWorking ] = useState(false)
-
-	let participate = () => {
-		setWorking(!working)
-	}
-
-	let history = useHistory()
-	let { path, url } = useRouteMatch()
 
 	return <Loadable loading={document.loading}
 		loaded={() =>
@@ -35,15 +25,12 @@ export function Task() {
 				className="site-page-header"
 				subTitle={document.value.description}
 				extra={[
-					<Button 
-						style={{color: !working ? "#1890ff" : "#760D14"}} 
-						onClick={participate} 
-						key="participate"> 
-						{!working ? "Participate" : "Quit" }
-					</Button>
+					<Button key="participate">Participate</Button>
 				]}
 				tags={<Tag color="blue">Running</Tag>} >
 				<Row>
+                    
+                    <h2>Task work</h2>
 					{document.value._attachments ? 
                     <img
 						style={{ objectFit: "cover", flex: 1, width: "100%" }}
