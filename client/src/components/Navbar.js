@@ -48,17 +48,15 @@ export default function Navbar() {
 				<Link to="/profile">Profile</Link>
 			</Menu.Item>
 
-			<Menu style={{ float: 'right' }} theme={theme}>
-				<Menu.Item key="signup">
-					<MailOutlined />
-					<Link to="#">Sign-up</Link>
-				</Menu.Item>
+			<Menu.Item style={{ float: 'right' }} key="signup">
+				<MailOutlined />
+				<Link to="#">Sign-up</Link>
+			</Menu.Item>
 
-				<Menu.Item key="login">
-					<LoginOutlined/>
-					<Link to="#">Log in.</Link>
-				</Menu.Item>
-			</Menu>
+			<Menu.Item style={{ float: 'right' }} key="login">
+				<LoginOutlined/>
+				<Link to="#">Log in.</Link>
+			</Menu.Item>
 		</Menu>
 	)
 }
