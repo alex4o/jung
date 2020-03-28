@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Row, Col, Typography, Avatar, Progress, Divider, List } from "antd";
+import { Row, Col, Typography, Avatar, Progress, Divider, List, PageHeader } from "antd";
 import { UserOutlined, SettingFilled } from '@ant-design/icons'
 import { db } from "../stores/db"
 import { observer, useObserver } from "mobx-react";
 import useStores from "../hooks/useStores";
+import { usePromise } from "../utils";
+import AchievementCard from "./achievementItems/AchievementCard";
 
 
 function useUserData() {
@@ -15,6 +17,21 @@ function useUserData() {
 
 }
 
+
+function achievementList(list) {
+	return (
+		<div style={{ display: "flex", flexWrap: "wrap" }}>
+			{list.map((el, i) => <AchievementCard key={i} data={el} />)}
+		</div>
+	);
+}
+function AchievementSegment({loading, value}) {
+	return <>
+		<Row>
+			{achievementList(loading ? [] : value)}
+		</Row>
+	</>
+}
 export default function Profile() {
 
     const { username } = useUserData();
@@ -41,23 +58,26 @@ export default function Profile() {
 
     const data = [
         {
-            title: 'Gosho petrov',
+            title: 'Bashar Al Asad',
         },
         {
-            title: 'Ivo Kamenov',
+            title: 'Ivo Ushev',
         },
         {
-            title: 'Karaman Mitev',
+            title: 'Karaman Kurev',
         },
         {
             title: 'Doncho Minkov',
         },
     ];
+
+	let { loading, value } = usePromise(db.query("tables/achievement-view", { include_docs: true }).then(result => result.rows.map(row => row.doc)));
+
     return (
         <div className="profile-page">
             <Row justify="end">
 
-                <SettingFilled  style={{ fontSize: '24pt' }} onClick={() => {
+                <SettingFilled style={{ fontSize: '24pt' }} onClick={() => {
 
                     console.log(":)");
                 }} />
@@ -96,27 +116,35 @@ export default function Profile() {
                     <Row type="flex" justify="start">
                         <Col span={12}>
                             <Row justify="center">
-                                <Typography.Title type="secondary" level={3}>Network</Typography.Title>
+                                <Typography.Title type="secondary" level={3}>Network Leaderboard</Typography.Title>
                             </Row>
                             <Row>
                                 <List
                                     itemLayout="horizontal"
                                     dataSource={data}
-                                    renderItem={item => (
-                                        <List.Item>
-                                            <List.Item.Meta
-                                                avatar={<Avatar src="https://ca.slack-edge.com/T0103TLKJBC-U010XLC1A72-eb2c9525d2f0-512" />}
-                                                title={<a href="https://ant.design">{item.title}</a>}
-                                                description="Achiever"
-                                            />
-                                        </List.Item>
+                                    renderItem={(item, index) => (
+                                        <Row align="middle">
+                                            <Col style={{ fontSize: '16pt', marginRight: '20px' }} >{index + 1}.</Col>
+                                            <Col>
+
+                                                <List.Item>
+                                                    <List.Item.Meta
+                                                        avatar={<Avatar src="https://ca.slack-edge.com/T0103TLKJBC-U010XLC1A72-eb2c9525d2f0-512" />}
+                                                        title={<Typography.Text strong style = {{fontSize:'18pt'}}>{item.title}</Typography.Text>}
+                                                        description="Achiever"
+                                                    />
+                                                </List.Item>
+                                            </Col>
+                                        </Row>
                                     )}
                                 />
                             </Row>
                         </Col>
                         <Col span={12}>
                             <Row justify="center">
-                                <Typography.Title type="secondary" level={3}>Leaderboard</Typography.Title>
+                                <Typography.Title type="secondary" level={3}>Highest Achievements</Typography.Title>
+                                <AchievementSegment loading={loading} value={value}/>
+
                             </Row>
 
                         </Col>
