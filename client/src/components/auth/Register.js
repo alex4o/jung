@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Form, Checkbox, Button, Row, Col } from 'antd';
-import db from "../../stores/db"
+import { db } from "../../stores/db"
 import { Redirect } from 'react-router-dom';
 export default function Register() {
 
@@ -9,24 +9,24 @@ export default function Register() {
         if (values.password === values.passwordConfirm) {
             db.signUp(values.username, values.password,
                 {
-                    metadata:{
-                        achievements:[],
-                        email:"-1",
-                        level:"1",
-                        totalExp:0,
-                        expToNextLevel:100,
-                        
+                    metadata: {
+                        achievements: [],
+                        email: "-1",
+                        level: "1",
+                        totalExp: 0,
+                        expToNextLevel: 100,
+
                     }
                 },
-                 (err, response) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log(response);
+                (err, response) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(response);
 
-                    setRedirect(true);
-                }
-            });
+                        setRedirect(true);
+                    }
+                });
         } else {
             console.log("passwords not matching");
         }

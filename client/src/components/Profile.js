@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Typography, Avatar, Progress, Divider } from "antd";
 import { UserOutlined } from '@ant-design/icons'
 import { db } from "../stores/db"
@@ -7,7 +7,7 @@ import useStores from "../hooks/useStores";
 
 
 function useUserData() {
-    const {appStore} = useStores()
+    const { appStore } = useStores()
 
     return useObserver(() => ({
         username: appStore.username,
@@ -19,6 +19,25 @@ export default function Profile() {
 
     const { username } = useUserData();
 
+    let [userInfo, setUserInfo] = useState({});
+
+    console.log(username)
+    if (!userInfo.level) {
+
+        db.getUser(username, (err, res) => {
+            if (err) {
+                console.log(err);
+
+            } else {
+                console.log(res);
+                setUserInfo({
+                    level: res.level,
+                    progress: res.totalExp / res.expToNextLevel + 1,
+
+                })
+            }
+        })
+    }
     return (
         <div className="profile-page">
             <Row type="flex" justify="center" align="top" style={{ minHeight: '100vh', backgroundColor: '#fefefe', padding: '50px', borderRadius: '25px' }}>
@@ -31,7 +50,7 @@ export default function Profile() {
                     </Row>
                     <Row type="flex" justify="center">
                         <Col>
-                            <Avatar size={128} icon={<UserOutlined />} />
+                            <Avatar size={128} src="https://ca.slack-edge.com/T0103TLKJBC-U010XLC1A72-eb2c9525d2f0-512" />
                         </Col>
                     </Row>
                     <Row type="flex" justify="center">
@@ -43,12 +62,12 @@ export default function Profile() {
 
                         <Col>
                             <Typography.Text strong style={{ fontSize: '12pt' }}>Lvl. </Typography.Text>
-                            <Typography.Text style={{ fontSize: '16pt' }}>23 </Typography.Text>
+                            <Typography.Text style={{ fontSize: '16pt' }}>{userInfo.level}</Typography.Text>
 
                         </Col>
                     </Row>
                     <Row type="flex" justify="center">
-                        <Progress style={{ width: '50%' }} showInfo={false} status="active" percent={30} />
+                        <Progress style={{ width: '50%' }} showInfo={false} status="active" percent={userInfo.progress} />
                     </Row>
                     <Divider />
                     <Row type="flex" justify="start">

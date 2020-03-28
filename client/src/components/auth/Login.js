@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Input, Checkbox, Button, Form, Row, Col } from 'antd'
-import db from "../../stores/db"
+import { db } from "../../stores/db"
 import { Redirect } from 'react-router-dom';
 import useStores from "../../hooks/useStores";
 import { useObserver } from 'mobx-react';
@@ -26,7 +26,7 @@ export default function Login() {
                 console.log(err);
             } else {
 
-                setUsername("GOshko 2");
+                setUsername(values.username);
                 setRedirect(true);
                 console.log("yeay");
             }
