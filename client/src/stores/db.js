@@ -1,4 +1,8 @@
 import PouchDB from "pouchdb"
+import auth from "pouchdb-authentication"
 
-export default new PouchDB("http://fortress88.servebeer.com:5984/jung") 
+PouchDB.plugin(auth)
+
+export let db = new PouchDB("http://fortress88.servebeer.com:5984/jung")
+
 export let tasks = new PouchDB("http://fortress88.servebeer.com:5984/tasks") 

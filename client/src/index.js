@@ -36,7 +36,7 @@ export default function Index() {
 						<Route></Route>
 					</Switch>
 					<Row justify="center">
-						<Col span={24} md={20} lg={18} xl={12} style={{ padding: "25px", background: "#FEFEFE" }}>
+						<Col span={24} md={20} lg={18} xl={12} style={{ padding: "25px"}}>
 							<Switch>
 								<Route path="/profile" component={Profile} />
 								<Route path="/tasks" component={Tasks} />

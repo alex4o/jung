@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input, Form, Checkbox, Button, Row, Col } from 'antd';
-
+import { db } from "../../stores/db"
+import { Redirect } from 'react-router-dom';
 export default function Register() {
+
+
+    const onFinish = values => {
+        if (values.password === values.passwordConfirm) {
+            db.signUp(values.username, values.password, (err, response) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(response);
+
+                    setRedirect(true);
+                }
+            });
+        } else {
+            console.log("passwords not matching");
+        }
+    };
+
+    const onFinishFailed = errorInfo => {
+        console.log('Failed:', errorInfo);
+    };
+
+    const [redirect, setRedirect] = useState(false);
+
     return (
         <div className="login-page">
             <Row type="flex" justify="center" align="middle" style={{ minHeight: '100vh' }}>
                 <Col>
                     <Form
                         name="basic"
-                        initialValues={{ remember: true }}>
+                        initialValues={{ remember: true }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}>
 
                         <Form.Item
                             label="Username"
@@ -26,7 +53,7 @@ export default function Register() {
 
                         <Form.Item
                             label="Password"
-                            name="password"
+                            name="passwordConfirm"
                             rules={[{ required: true, message: 'Please input your password!' }]}>
                             <Input.Password />
                         </Form.Item>
@@ -42,7 +69,10 @@ export default function Register() {
                     </Form>
                 </Col>
             </Row>
+            {redirect ? <Redirect to="/login" /> : null}
+
         </div>
+
 
     )
 }
