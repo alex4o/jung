@@ -31,7 +31,12 @@ export default function Navbar() {
 						<Link to="/">Home</Link>
 					</Menu.Item>
 
-					<SubMenu title = {
+					<Menu.Item key="tasks">
+						<SettingOutlined />
+						<Link to="/tasks">Tasks</Link>
+					</Menu.Item>
+
+					{/* <SubMenu title = {
 							<span className="submenu-title-wrapper">
 								<SettingOutlined />
 								<Link to="/tasks">Tasks</Link>
@@ -45,7 +50,7 @@ export default function Navbar() {
 							<Menu.Item key="setting:3">Option 3</Menu.Item>
 							<Menu.Item key="setting:4">Option 4</Menu.Item>
 						</Menu.ItemGroup>
-					</SubMenu>
+					</SubMenu> */}
 
 					<Menu.Item key="alipay">
 						<AppstoreOutlined/>

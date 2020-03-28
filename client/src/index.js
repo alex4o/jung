@@ -30,7 +30,7 @@ export default function Index() {
 				</Layout.Header>
 				<Layout.Content style={{ padding: '0 50px' }}>
 					<Row justify="center">
-						<Col >
+						<Col>
 							<Switch>
 								<Route path="/profile" component={Profile} />
 								<Route path="/tasks" component={Tasks} />
