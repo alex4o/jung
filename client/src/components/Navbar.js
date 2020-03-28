@@ -21,7 +21,7 @@ export default function Navbar() {
 	let handleClick = (e) => {
 		setCurrent(e.key)
 	};
-	
+
 	return (
 		<Menu style={{ marginLeft: '10%', marginRight: '10%'}}
 			onClick={handleClick}
@@ -39,7 +39,7 @@ export default function Navbar() {
 			</Menu.Item>
 
 			<Menu.Item key="alipay">
-				<AppstoreOutlined/>
+				<AppstoreOutlined />
 				<Link to="/achivements">Achivements</Link>
 			</Menu.Item>
 
