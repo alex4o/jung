@@ -4,7 +4,9 @@ import {
 	Switch,
 	Route,
 	Link,
-	useRouteMatch
+	useRouteMatch,
+	useHistory,
+	useParams
 } from "react-router-dom";
 
 import { usePromise } from "../utils"
@@ -16,26 +18,32 @@ import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 const IconText = ({ icon, text }) => (
 	<span>
-	  {React.createElement(icon, { style: { marginRight: 8 } })}
-	  {text}
+		{React.createElement(icon, { style: { marginRight: 8 } })}
+		{text}
 	</span>
-  );
+);
 
 function Task() {
+	let { id } = useParams();
+	let document = usePromise(tasks.get(id))
 
-	return <div>sth</div>
+	return <Card loading={document.loading}> {JSON.stringify(document)} </Card>
 }
 
 function TaskList() {
 	let docs = usePromise(tasks.allDocs({ include_docs: true }))
+	let history = useHistory();
+
 	console.log(docs)
 	return (
-		<List itemLayout="vertical" loading={docs.loading} dataSource={docs.loading ? [] : docs.value.rows} active renderItem={it => <List.Item 
- 		key={it.id} actions={[
-			<IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-			<IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-			<IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-		]}>
+		<List itemLayout="vertical" loading={docs.loading} dataSource={docs.loading ? [] : docs.value.rows} active="true" renderItem={it => <List.Item
+			style={{ boxSizing: "border-box", width: 800 }}
+			onClick={() => history.push(`/tasks/${it.id}`)}
+			key={it.id} actions={[
+				<IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
+				<IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
+				<IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+			]}>
 			<List.Item.Meta
 				// avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
 				title={it.doc.title}
@@ -59,9 +67,7 @@ export default function Tasks() {
 				<Route exact path={path}>
 					<TaskList />
 				</Route>
-				<Route path={`${path}/:topicId`}>
-					<Task />
-				</Route>
+				<Route path={`${path}/:id`} component={Task} />
 			</Switch>
 		</div>
 	);
