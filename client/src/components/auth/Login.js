@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Input, Checkbox, Button, Form, Row, Col } from 'antd'
-import { db } from "../../stores/db"
+import db from "../../stores/db"
 import { Redirect } from 'react-router-dom';
 export default function Login() {
     const onFinish = values => {
