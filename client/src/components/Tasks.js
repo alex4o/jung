@@ -31,7 +31,7 @@ const IconText = ({ icon, text }) => (
 
 function TaskList() {
 
-	let docs = usePromise(db.query("tables/task-view", { include_docs: true }))
+	let docs = usePromise(db.query("tables/problem-view", { include_docs: true }))
 	let history = useHistory();
 
 	console.log(docs)

@@ -69,7 +69,7 @@ function questsList() {
 	 *     "requiredLvl": 0
 	 * }
 	 */
-	
+
 	let { loading, value } = usePromise(db.query("tables/quest-view", { include_docs: true }).then(result => result.rows.map(row => row.doc)));
 
 	return loading ? [] : value.map((el, i) => <Quest key={i} {...el} />)
@@ -102,7 +102,6 @@ export default function AchievementPage() {
 
 	let { loading, value } = usePromise(db.query("tables/achievement-view", { include_docs: true }).then(result => result.rows.map(row => row.doc)));
 
-	
 
 	return <Loadable loading={loading} loaded={() => <>
 			<Row>

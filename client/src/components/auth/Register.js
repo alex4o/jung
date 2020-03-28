@@ -3,8 +3,6 @@ import { Input, Form, Checkbox, Button, Row, Col } from 'antd';
 import { db } from "../../stores/db"
 import { Redirect } from 'react-router-dom';
 export default function Register() {
-
-
     const onFinish = values => {
         if (values.password === values.passwordConfirm) {
             db.signUp(values.username, values.password,
