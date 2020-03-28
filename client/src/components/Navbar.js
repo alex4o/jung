@@ -3,10 +3,10 @@ import { Menu } from 'antd';
 import { Link } from 'react-router-dom'
 
 import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
-  HomeOutlined,
+	MailOutlined,
+	AppstoreOutlined,
+	SettingOutlined,
+	HomeOutlined,
 } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
@@ -18,7 +18,7 @@ export default function Navbar() {
 	let handleClick = e => {
 		setCurrent(e.key)
 	};
-	
+
 	return (
 		<Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
 			<Menu.Item key="app">
@@ -26,9 +26,9 @@ export default function Navbar() {
 				<Link to="/">Home</Link>
 			</Menu.Item>
 			<SubMenu
-				title = {
+				title={
 					<span className="submenu-title-wrapper">
-					<SettingOutlined />
+						<SettingOutlined />
 						<Link to="/tasks">Tasks</Link>
 					</span>
 				}
@@ -43,13 +43,13 @@ export default function Navbar() {
 				</Menu.ItemGroup>
 			</SubMenu>
 			<Menu.Item key="alipay">
-				<AppstoreOutlined/>
+				<AppstoreOutlined />
 				<Link to="/achivements">Achivements</Link>
 			</Menu.Item>
 			<Menu.Item key="mail">
 				<MailOutlined />
 				<Link to="/profile">Profile</Link>
 			</Menu.Item>
-	  	</Menu>
+		</Menu>
 	)
 }

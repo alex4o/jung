@@ -1,13 +1,46 @@
 import React from 'react';
-import Form from 'antd/lib/form/Form';
-import { Input } from 'antd';
-import FormItem from 'antd/lib/form/FormItem';
+import { Input, Form, Checkbox, Button } from 'antd';
+import "../../styles/auth.less"
 
 export default function Register() {
     return (
-        <Form>
-            <FormItem>
-            </FormItem>
-        </Form>
+        <div className="register-page">
+
+            <Form
+                name="basic"
+                initialValues={{ remember: true }}>
+
+                <Form.Item
+                    label="Username"
+                    name="username"
+                    rules={[{ required: true, message: 'Please input your username!' }]}>
+                    <Input />
+                </Form.Item>
+
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[{ required: true, message: 'Please input your password!' }]}>
+                    <Input.Password />
+                </Form.Item>
+
+                <Form.Item
+                    label="Password"
+                    name="password"
+                    rules={[{ required: true, message: 'Please input your password!' }]}>
+                    <Input.Password />
+                </Form.Item>
+
+
+                <Form.Item name="remember" valuePropName="checked">
+                    <Checkbox>Remember me</Checkbox>
+                </Form.Item>
+
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">Submit</Button>
+                </Form.Item>
+            </Form>
+        </div>
+
     )
 }
