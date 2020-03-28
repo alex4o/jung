@@ -44,10 +44,10 @@ export default function Profile() {
             title: 'Gosho petrov',
         },
         {
-            title: 'Ivo Ushev',
+            title: 'Ivo Kamenov',
         },
         {
-            title: 'Karaman Kurev',
+            title: 'Karaman Mitev',
         },
         {
             title: 'Doncho Minkov',
@@ -107,7 +107,7 @@ export default function Profile() {
                                             <List.Item.Meta
                                                 avatar={<Avatar src="https://ca.slack-edge.com/T0103TLKJBC-U010XLC1A72-eb2c9525d2f0-512" />}
                                                 title={<a href="https://ant.design">{item.title}</a>}
-                                                description="Profesionalen Cukach"
+                                                description="Achiever"
                                             />
                                         </List.Item>
                                     )}
