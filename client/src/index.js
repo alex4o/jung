@@ -9,7 +9,6 @@ import LandingPage from "./components/homepage/LandingPage"
 import Navbar from "./components/Navbar"
 import Login from "./components/auth/Login"
 import Register from "./components/auth/Register"
-import appStore from "./stores/appStore"
 
 import "./styles/app.less"
 
@@ -20,13 +19,11 @@ import {
 } from "react-router-dom";
 
 import { Layout, Col, Row } from "antd";
-import { Provider } from "mobx-react";
+import { Provider, useLocalStore } from "mobx-react";
 
 export default function Index() {
 
-
 	return (
-		<Provider appStore={appStore}>
 			<Router>
 				<Layout>
 					<Layout.Header>
@@ -52,8 +49,6 @@ export default function Index() {
 					</Layout.Content>
 				</Layout>
 			</Router>
-		</Provider>
-
 	);
 }
 

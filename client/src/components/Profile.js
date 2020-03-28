@@ -7,18 +7,18 @@ import useStores from "../hooks/useStores";
 
 
 function useUserData() {
-    const { username } = useStores()
-    console.log(useStores());
-    console.log(username);
-
+    const {appStore} = useStores()
 
     return useObserver(() => ({
-        username: username,
+        username: appStore.username,
     }))
+
 }
 
 export default function Profile() {
+
     const { username } = useUserData();
+
     return (
         <div className="profile-page">
             <Row type="flex" justify="center" align="top" style={{ minHeight: '100vh', backgroundColor: '#fefefe', padding: '50px', borderRadius: '25px' }}>

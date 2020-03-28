@@ -1,10 +1,13 @@
-import { observable, computed } from "mobx"
+import { observable, computed, action } from "mobx"
 
 export default class appStore {
-    @observable username = "gosho"
+    @observable username = "Masov Pederasov"
 
     constructor() {
-      
+
     }
 
+    @action setUsername(username){
+        this.username = username;
+    }
 }
