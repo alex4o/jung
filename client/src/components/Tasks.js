@@ -10,13 +10,21 @@ import {
 } from "react-router-dom";
 
 import { usePromise } from "../utils"
-import { Task, IconText } from './task/Task'
+import { Task } from './task/Task'
+import { TaskWork } from './task/TaskWork'
 
 import { tasks } from "../stores/db"
 import { Row, Tag, Button, Col, Card, List, PageHeader, Empty, Icon } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 import { Loadable } from "../utils"
+
+const IconText = ({ icon, text }) => (
+    <span>
+		{React.createElement(icon, {style: {marginRight: 8}})}
+		{text}
+	</span>
+);
 
 function TaskList() {
 
@@ -64,7 +72,8 @@ export default function Tasks() {
 				<Route exact path={path}>
 					<TaskList />
 				</Route>
-				<Route path={`${path}/:id`} component={Task} />
+				<Route exact path={`${path}/:id`} component={Task} />
+				<Route exact path={`${path}/:id/work`} component={TaskWork} />				
 			</Switch>
 		</div>
 	);
