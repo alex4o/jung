@@ -17,24 +17,33 @@ import {
 	Link
 } from "react-router-dom";
 
+import { Layout, Col, Row } from "antd";
 
 export default function Index() {
 
 
 	return (
 		<Router>
-			<div>
-				<Navbar/>
-				<Switch>
-					<Route path="/profile" component={Profile} />
-					<Route path="/tasks" component={Tasks} />
-					<Route path="/achivements" component={Achievements} />
-					<Route path="/home" component={LandingPage}/>
-					<Route path="/" >
-						<App />
-					</Route>
-				</Switch>
-			</div>
+			<Layout>
+				<Layout.Header>
+					<Navbar />
+				</Layout.Header>
+				<Layout.Content style={{ padding: '0 50px' }}>
+					<Row justify="center">
+						<Col >
+							<Switch>
+								<Route path="/profile" component={Profile} />
+								<Route path="/tasks" component={Tasks} />
+								<Route path="/achivements" component={Achievements} />
+								<Route path="/home" component={LandingPage} />
+								<Route path="/" >
+									<App />
+								</Route>
+							</Switch>
+						</Col>
+					</Row>
+				</Layout.Content>
+			</Layout>
 		</Router>
 	);
 }
