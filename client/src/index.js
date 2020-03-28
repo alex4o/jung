@@ -14,7 +14,7 @@ import Register from "./components/auth/Register"
 import "./styles/app.less"
 
 import {
-	HashRouter as Router,
+	BrowserRouter as Router,
 	Switch,
 	Route,
 } from "react-router-dom";
