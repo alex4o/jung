@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Form, Checkbox, Button } from 'antd';
-import "../../styles/auth.less"
 
 export default function Register() {
     return (
