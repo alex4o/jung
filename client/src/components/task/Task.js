@@ -19,8 +19,6 @@ const taskViewHashMap = {
 	"classification" : <ClassificationTask/>,
 }
 
-
-
 export function Task() {
 	let { id } = useParams();
 	let document = usePromise(tasks.get(id))
@@ -40,7 +38,7 @@ export function Task() {
 				className="site-page-header"
 				subTitle={document.value.description}
 				extra={[
-					<Button 
+					<Button
 						onClick={participate} 
 						key="participate"> 
 						{!working ? "Participate" : "Quit" }
