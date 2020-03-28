@@ -1,4 +1,4 @@
-import React, { useProps } from "react";
+import React, { useProps, useState } from "react";
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -24,6 +24,11 @@ export const IconText = ({ icon, text }) => (
 export function Task() {
 	let { id } = useParams();
 	let document = usePromise(tasks.get(id))
+	let [ working, setWorking ] = useState(false)
+
+	let participate = () => {
+		setWorking(!working)
+	}
 
 	return <Loadable loading={document.loading}
 		loaded={() =>
@@ -32,7 +37,12 @@ export function Task() {
 				className="site-page-header"
 				subTitle={document.value.description}
 				extra={[
-					<Button key="participate">Participate</Button>
+					<Button 
+						style={{color: !working ? "#1890ff" : "#760D14"}} 
+						onClick={participate} 
+						key="participate"> 
+						{!working ? "Participate" : "Quit" }
+					</Button>
 				]}
 				tags={<Tag color="blue">Running</Tag>} >
 				<Row>
