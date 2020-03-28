@@ -41,7 +41,7 @@ export default function Navbar() {
 
 			<Menu.Item key="achievements">
 				<AppstoreOutlined />
-				<Link to="/achivements">Achivements</Link>
+				<Link to="/achievements">Achievements</Link>
 			</Menu.Item>
 
 			<Menu.Item key="profile">

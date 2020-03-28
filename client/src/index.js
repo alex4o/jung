@@ -40,20 +40,15 @@ export default function Index() {
 							<Switch>
 								<Route path="/profile" component={Profile} />
 								<Route path="/tasks" component={Tasks} />
-								<Route path="/achivements" component={Achievements} />
+								<Route path="/achievements" component={Achievements} />
 								<Route path="/login" component={Login}></Route>
 								<Route path="/register" component={Register}></Route>
-								{/* <Route path="/home"> </Route> */}
-
 								<Route path="/" >
 									<App />
 								</Route>
 							</Switch>
 						</Col>
 					</Row>
-
-
-
 				</Layout.Content>
 			</Layout>
 		</Router>
