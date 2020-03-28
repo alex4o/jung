@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import { Row, Col, Divider, Progress, PageHeader, Popover } from "antd";
+import { Row, Col, Divider, Progress, PageHeader, Popover, Layout} from "antd";
+
+const { Header, Footer, Sider, Content } = Layout;
+
 import AchievementCard from './AchievementCard'
+import Quest from './Quest'
 
 import { achievements } from "../../stores/db"
 import { Loadable, usePromise } from "../../utils"
@@ -16,7 +20,7 @@ function achievementList(list) {
 function achievementStats(data) {
 	let mockStats = [ 34, 54, 76, 54, 10 ]
 	let strokeNum = 20
-	let style = { margin: "10px"}
+	let style = { margin: "10px" }
 	
 	return(
 		<div>
@@ -53,31 +57,97 @@ function achievementStats(data) {
 	);
 }
 
-export default function AchievementSegment() {
+function questsList() {
+	/**
+	 * Quest JSON
+	 * {
+	 *     "title": "",
+	 *     "description": "",
+	 *     "targetNum": 0,
+	 *     "progress": X,
+	 *     "reward": 0
+	 *     "requiredLvl": 0
+	 * }
+	 */
+	let mockQuests = [{
+		title: "Drastic measures",
+		description: "Buy 15 pianos!",
+		target: 15,
+		progress: 5,
+		reward: 2500,
+		requiredLvl: 1
+	}, {
+		title: "Drastic measures",
+		description: "Buy 16 pianos!",
+		target: 16,
+		progress: 5,
+		reward: 2501,
+		requiredLvl: 1
+	}, {
+		title: "Drastic measures",
+		description: "Buy 17 pianos!",
+		target: 17,
+		progress: 5,
+		reward: 2502,
+		requiredLvl: 1
+	}, {
+		title: "Drastic measures",
+		description: "Buy 12 pianos!",
+		target: 12,
+		progress: 5,
+		reward: 2503,
+		requiredLvl: 1
+	}, {
+		title: "Drastic measures",
+		description: "Buy 10 pianos!",
+		target: 10,
+		progress: 5,
+		reward: 2504,
+		requiredLvl: 1
+	}]
 
-	let { loading, value } = usePromise(achievements.allDocs({ include_docs: true }).then(result => result.rows.map(row => row.doc)));
-	console.log(value)
-	return <Loadable loading={loading} loaded={() => <>
-		<Row gutter={[16, 32]}>
-			<Col span={12}>
-				<PageHeader title="Quests"/>
-			</Col>
-			<Col span={12} style={{ 
-				borderLeft: '1px #DDD solid' }}>
-				<PageHeader title="Statistics"/>
-				{achievementStats()}
-				<Divider/>
-			</Col>
-		</Row>
+	let [ list, setList ] = useState(mockQuests)
 
-		<Row gutter={[16, 32]}>
-			<Col span={12}/>
+	return list.map((el, i) => <Quest key={i} {...el} />)
+}
 
-			<Col span={12} style={{ borderLeft: '1px #DDD solid' }}>
-				<PageHeader title="Achievements"/>
-				{achievementList(loading ? [] : value)}
-			</Col>
+function QuestSegment() {
+	return <>
+		<PageHeader title="Quests"/>
+		{questsList()}
+	</>
+}
+
+function AchievementSegment({loading, value}) {
+	return <>
+		<Row>
+			<PageHeader title="Achievements"/>
+			{achievementList(loading ? [] : value)}
 		</Row>
 	</>
+}
+
+function StatisticsSegment() {
+	return <>
+		<PageHeader title="Statistics"/>
+		{achievementStats()}
+	</>
+}
+
+export default function AchievementPage() {
+
+	let { loading, value } = usePromise(achievements.allDocs({ include_docs: true }).then(result => result.rows.map(row => row.doc)));
+
+	return <Loadable loading={loading} loaded={() => <>
+			<Row>
+				<Col className="questSegment" span={12}>
+					<QuestSegment/>
+				</Col>
+				<Col span={12} style={{ borderLeft: '1px #DDD solid' }}>
+					<StatisticsSegment/>			
+					<AchievementSegment loading={loading} value={value}/>
+				</Col>
+			</Row>
+		</>
 	} />
 }

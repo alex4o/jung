@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 
 import App from "./components/App";
 import Profile from "./components/Profile";
-import AchievementSegment from "./components/achievementItems/AchievementSegment";
+import AchievementPage from "./components/achievementItems/AchievementSegment";
 import Tasks from "./components/Tasks";
 import LandingPage from "./components/homepage/LandingPage"
 import Navbar from "./components/Navbar"
@@ -36,11 +36,11 @@ export default function Index() {
 						<Route></Route>
 					</Switch>
 					<Row justify="center">
-						<Col span={24} md={20} lg={18} xl={12} style={{ padding: "25px"}}>
+						<Col span={24} md={20} lg={18} xl={12} style={{ backgroundColor: "#fefefe", padding: "25px"}}>
 							<Switch>
 								<Route path="/profile" component={Profile} />
 								<Route path="/tasks" component={Tasks} />
-								<Route path="/achievements" component={AchievementSegment} />
+								<Route path="/achievements" component={AchievementPage} />
 								<Route path="/login" component={Login}/>
 								<Route path="/register" component={Register}/>
 								<Route path="/" component={App} />
