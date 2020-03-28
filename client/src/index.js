@@ -31,15 +31,19 @@ export default function Index() {
 					<Navbar />
 				</Layout.Header>
 				<Layout.Content>
+					<Switch>
+						<Route exact path="/" component={LandingPage} />
+						<Route></Route>
+					</Switch>
 					<Row justify="center">
-						<Col>
+						<Col span={24} md={20} lg={18} xl={12} style={{ padding: "25px", background: "#FEFEFE" }}>
 							<Switch>
 								<Route path="/profile" component={Profile} />
 								<Route path="/tasks" component={Tasks} />
 								<Route path="/achivements" component={Achievements} />
-								<Route path="/home" component={LandingPage} />
 								<Route path="/login" component={Login}></Route>
 								<Route path="/register" component={Register}></Route>
+								{/* <Route path="/home"> </Route> */}
 
 								<Route path="/" >
 									<App />
@@ -47,6 +51,9 @@ export default function Index() {
 							</Switch>
 						</Col>
 					</Row>
+
+
+
 				</Layout.Content>
 			</Layout>
 		</Router>

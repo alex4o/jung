@@ -1,6 +1,11 @@
 import { useAsync } from "react-use"
+import { Skeleton } from "antd"
+import React from "react";
 
-
+/**
+ * 
+ * @param {Promise<Any>} promise 
+ */
 export function wrapPromise(promise) {
     let status = 'pending'
     let response
@@ -36,6 +41,22 @@ export function delay(time) {
     });
 }
 
+export function Loadable(props) {
+	let Component = Skeleton
+	if(props.component) {
+		Component = props.component
+	} 
+
+    let loaded = () => {}
+    if(props.loaded) {
+        loaded = props.loaded
+    }
+
+	return <Component {...props} loading={props.loading}>
+		{ props.loading ? <></> : loaded() }
+	</Component>
+	
+}
 
 export function usePromise(promise, deps) {
     return useAsync( async () => { return await promise }, deps )

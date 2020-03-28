@@ -50,7 +50,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
-      filename: "./index.html"
+      filename: "./index.html",
+      meta: {
+        viewport: "width=device-width, initial-scale=1, shrink-to-fit=no"
+      },
+      base: "/"
     })
   ],
   devServer: {
