@@ -26,7 +26,7 @@ export default function Navbar() {
 		<Menu style={{ marginLeft: '10%', marginRight: '10%'}}
 			onClick={handleClick}
 			selectedKeys={[current]} 
-			mode="horizontal" 
+			mode="horizontal"
 			theme={theme}>
 				
 			<Menu.Item key="home">

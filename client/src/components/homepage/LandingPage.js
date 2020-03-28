@@ -2,27 +2,27 @@ import React from "react";
 import { Carousel } from 'antd'
 import '../../styles/landingPage.css'
 
-function onChange(a, b, c) {
-    console.log(a, b, c);
-  }
+function onChange(event) {
+    console.log(event)
+}
 
 export default function LandingPage() {
     return(
         <Carousel style={{ fontSize: 60, color: 'white' }} afterChange={onChange} autoplay>
             <div>
-                <h3>ти</h3>
+                <h3>Save</h3>
             </div>
 
             <div>
-                <h3>си</h3>
+                <h3>Communities</h3>
             </div>
 
             <div>
-                <h3>гей</h3>
+                <h3>Save</h3>
             </div>
 
             <div>
-                <h3>!</h3>
+                <h3>Business</h3>
             </div>
         </Carousel>
     )
