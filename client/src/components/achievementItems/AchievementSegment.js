@@ -6,7 +6,7 @@ const { Header, Footer, Sider, Content } = Layout;
 import AchievementCard from './AchievementCard'
 import Quest from './Quest'
 
-import { achievements } from "../../stores/db"
+import { db } from "../../stores/db"
 import { Loadable, usePromise } from "../../utils"
 
 function achievementList(list) {
@@ -69,46 +69,10 @@ function questsList() {
 	 *     "requiredLvl": 0
 	 * }
 	 */
-	let mockQuests = [{
-		title: "Drastic measures",
-		description: "Buy 15 pianos!",
-		target: 15,
-		progress: 5,
-		reward: 2500,
-		requiredLvl: 1
-	}, {
-		title: "Drastic measures",
-		description: "Buy 16 pianos!",
-		target: 16,
-		progress: 5,
-		reward: 2501,
-		requiredLvl: 1
-	}, {
-		title: "Drastic measures",
-		description: "Buy 17 pianos!",
-		target: 17,
-		progress: 5,
-		reward: 2502,
-		requiredLvl: 1
-	}, {
-		title: "Drastic measures",
-		description: "Buy 12 pianos!",
-		target: 12,
-		progress: 5,
-		reward: 2503,
-		requiredLvl: 1
-	}, {
-		title: "Drastic measures",
-		description: "Buy 10 pianos!",
-		target: 10,
-		progress: 5,
-		reward: 2504,
-		requiredLvl: 1
-	}]
+	
+	let { loading, value } = usePromise(db.query("tables/quest-view", { include_docs: true }).then(result => result.rows.map(row => row.doc)));
 
-	let [ list, setList ] = useState(mockQuests)
-
-	return list.map((el, i) => <Quest key={i} {...el} />)
+	return loading ? [] : value.map((el, i) => <Quest key={i} {...el} />)
 }
 
 function QuestSegment() {
@@ -136,7 +100,9 @@ function StatisticsSegment() {
 
 export default function AchievementPage() {
 
-	let { loading, value } = usePromise(achievements.allDocs({ include_docs: true }).then(result => result.rows.map(row => row.doc)));
+	let { loading, value } = usePromise(db.query("tables/achievement-view", { include_docs: true }).then(result => result.rows.map(row => row.doc)));
+
+	
 
 	return <Loadable loading={loading} loaded={() => <>
 			<Row>

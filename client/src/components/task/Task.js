@@ -9,7 +9,7 @@ import {
 	useParams
 } from "react-router-dom";
 
-import { tasks } from "../../stores/db"
+import { db } from "../../stores/db"
 import { Row, Tag, Button, Col, Card, List, PageHeader, Empty, Icon } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { Loadable, usePromise } from "../../utils"
@@ -22,8 +22,8 @@ const taskViewHashMap = {
 
 
 export function Task() {
-	let { id } = useParams();
-	let document = usePromise(tasks.get(id))
+	let { id } = useParams()
+	let document = usePromise(db.get(id))
 	let [ working, setWorking ] = useState(false)
 
 	let participate = () => {
@@ -52,7 +52,7 @@ export function Task() {
                     <img
 						style={{ objectFit: "cover", flex: 1, width: "100%" }}
 						alt="logo"
-						src={`http://fortress88.servebeer.com:5984/tasks/${id}/${Object.keys(document.value._attachments)[0]}`}
+						src={`http://fortress88.servebeer.com:5984/jung/${id}/${Object.keys(document.value._attachments)[0]}`}
 					/> : <></>}
 
 					{ working ? taskViewHashMap[type] : <></>}

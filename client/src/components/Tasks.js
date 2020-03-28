@@ -13,7 +13,10 @@ import { usePromise } from "../utils"
 import { Task } from './task/Task'
 import { TaskWork } from './task/TaskWork'
 
-import { tasks } from "../stores/db"
+import { db, tasks } from "../stores/db"
+
+
+
 import { Row, Tag, Button, Col, Card, List, PageHeader, Empty, Icon } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
@@ -28,10 +31,14 @@ const IconText = ({ icon, text }) => (
 
 function TaskList() {
 
-	let docs = usePromise(tasks.allDocs({ include_docs: true }))
+	let docs = usePromise(db.query("tables/task-view", { include_docs: true }))
 	let history = useHistory();
 
 	console.log(docs)
+
+	
+
+
 	return (
 		<List itemLayout="vertical" loading={docs.loading} dataSource={docs.loading ? [] : docs.value.rows} active="true" renderItem={it => <List.Item
 			style={{ boxSizing: "border-box", flex: "1" }}
@@ -45,10 +52,11 @@ function TaskList() {
 				it.doc._attachments ? <img
 					style={{ objectFit: "cover", width: 260, height: 140 }}
 					alt="logo"
-					src={`http://fortress88.servebeer.com:5984/tasks/${it.id}/${Object.keys(it.doc._attachments)[0]}`}
+					src={`http://fortress88.servebeer.com:5984/jung/${it.id}/${Object.keys(it.doc._attachments)[0]}`}
 				/> : <Empty style={{ width: 260, height: 140 }}></Empty>
 			}
 		>
+			{  }
 			<List.Item.Meta
 				// avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
 				title={it.doc.title}
