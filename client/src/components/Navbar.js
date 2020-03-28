@@ -3,12 +3,12 @@ import { Menu, Col, Row } from 'antd';
 import { Link } from 'react-router-dom'
 
 import {
-  MailOutlined,
-  AppstoreOutlined,
-  SettingOutlined,
-  HomeOutlined,
-  LoginOutlined,
-  UserOutlined
+	MailOutlined,
+	AppstoreOutlined,
+	SettingOutlined,
+	HomeOutlined,
+	LoginOutlined,
+	UserOutlined
 } from '@ant-design/icons';
 
 const { SubMenu } = Menu;

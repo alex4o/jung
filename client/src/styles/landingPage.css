@@ -10,3 +10,9 @@
 .ant-carousel .slick-slide h3 {
     color: #fff;
 }
+
+.achievementItem:hover {
+    
+    transition: all 0.2s;
+    background-color: #e6f1fb
+}
