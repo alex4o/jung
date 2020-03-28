@@ -15,7 +15,7 @@ const { SubMenu } = Menu;
 
 export default function Navbar() {
 
-	let [ current, setCurrent ] = useState('mail')
+	let [ current, setCurrent ] = useState('')
 	let [ theme, setTheme ] = useState("dark")
 
 	let handleClick = (e) => {
@@ -28,7 +28,8 @@ export default function Navbar() {
 			selectedKeys={[current]} 
 			mode="horizontal" 
 			theme={theme}>
-			<Menu.Item key="app">
+				
+			<Menu.Item key="home">
 				<HomeOutlined />
 				<Link to="/">Home</Link>
 			</Menu.Item>
@@ -38,12 +39,12 @@ export default function Navbar() {
 				<Link to="/tasks">Tasks</Link>
 			</Menu.Item>
 
-			<Menu.Item key="alipay">
+			<Menu.Item key="achievements">
 				<AppstoreOutlined />
 				<Link to="/achivements">Achivements</Link>
 			</Menu.Item>
 
-			<Menu.Item key="mail">
+			<Menu.Item key="profile">
 				<UserOutlined />
 				<Link to="/profile">Profile</Link>
 			</Menu.Item>

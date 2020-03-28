@@ -30,7 +30,7 @@ export default function Index() {
 				<Layout.Header>
 					<Navbar />
 				</Layout.Header>
-				<Layout.Content style={{ padding: '0 50px' }}>
+				<Layout.Content>
 					<Row justify="center">
 						<Col>
 							<Switch>
