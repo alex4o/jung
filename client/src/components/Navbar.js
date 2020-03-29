@@ -83,20 +83,25 @@ export default function Navbar() {
 			<Menu.Item style={{ marginLeft: "auto", ...stateNavbarManager }}>
 				<UserOutlined />
 				{/* <Row> */}
-					{/* <Link onClick={() => appStore.logout()}>Log out</Link> */}
-					<span style={{ position: "relative" }}>
-						{username} - lvl: {level}
-					<Progress style={{ position: "absolute", top: "16px", left: "0px" }} strokeWidth={4} percent={100 * progress} size="small" showInfo={false} />
-					</span>
-				{/* </Row> */}
+				{/* <Link onClick={() => appStore.logout()}>Log out</Link> */}
+				<div style= {{ display: "inline-flex", verticalAlign: "bottom", height: "64px"  }}>
+					<div style={{ display: "flex", flexDirection: "column", position: "relative", lineHeight: "16px", margin: "auto" }}>
+						<span>{username}</span>
+						<span>lvl: {level}
+						</span>
+						<Progress strokeLinecap="square" style={{ position: "absolute", top: "30px" }} strokeWidth={4} percent={100 * progress} size="small" showInfo={false} />
+					</div>
+
+				</div>
+			{/* </Row> */}
 			</Menu.Item>
-			<Menu.Item style={{ ...stateNavbarManager }} key="logout">
-				<MailOutlined />
-				<Link onClick={() => appStore.logout()}>Log out</Link>
-			</Menu.Item>
+		<Menu.Item style={{ ...stateNavbarManager }} key="logout">
+			<MailOutlined />
+			<Link onClick={() => appStore.logout()}>Log out</Link>
+		</Menu.Item>
 
 
 
-		</Menu>
+		</Menu >
 	)
 }

@@ -20,18 +20,18 @@ function useUserData() {
 }
 
 function achievementList(list) {
-	return (
-		<div style={{ display: "flex", flexWrap: "wrap" }}>
-			{list.map((el, i) => <AchievementCard key={i} data={el} />)}
-		</div>
-	);
+    return (
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+            {list.map((el, i) => <AchievementCard key={i} data={el} />)}
+        </div>
+    );
 }
-function AchievementSegment({loading, value}) {
-	return <>
-		<Row>
-			{achievementList(loading ? [] : value)}
-		</Row>
-	</>
+function AchievementSegment({ loading, value }) {
+    return <>
+        <Row>
+            {achievementList(loading ? [] : value)}
+        </Row>
+    </>
 }
 export default function Profile() {
 
@@ -55,7 +55,7 @@ export default function Profile() {
         },
     ];
 
-	let { loading, value } = usePromise(db.query("tables/achievement-view", { include_docs: true }).then(result => result.rows.map(row => row.doc)));
+    let { loading, value } = usePromise(db.query("tables/achievement-view", { include_docs: true }).then(result => result.rows.map(row => row.doc)));
 
     return (
         <div className="profile-page">
@@ -94,7 +94,10 @@ export default function Profile() {
                         </Col>
                     </Row>
                     <Row type="flex" justify="center">
-                        <Progress style={{ width: '50%' }} showInfo={false} status="active" percent={100 * progress} />
+                        <Progress style={{ width: '50%' }} strokeColor={{
+                            '0%': '#108ee9',
+                            '100%': '#87d068',
+                        }} showInfo={false} status="active" percent={100 * progress} />
                     </Row>
                     <Divider />
                     <Row type="flex" justify="start">
@@ -114,7 +117,7 @@ export default function Profile() {
                                                 <List.Item>
                                                     <List.Item.Meta
                                                         avatar={<Avatar src={defaultAvatar} />}
-                                                        title={<Typography.Text strong style = {{fontSize:'18pt'}}>{item.title}</Typography.Text>}
+                                                        title={<Typography.Text strong style={{ fontSize: '18pt' }}>{item.title}</Typography.Text>}
                                                         description="Achiever"
                                                     />
                                                 </List.Item>
@@ -127,7 +130,7 @@ export default function Profile() {
                         <Col span={12}>
                             <Row justify="center">
                                 <Typography.Title type="secondary" level={3}>Highest Achievements</Typography.Title>
-                                <AchievementSegment loading={loading} value={value}/>
+                                <AchievementSegment loading={loading} value={value} />
 
                             </Row>
 
