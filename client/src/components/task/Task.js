@@ -16,7 +16,7 @@ import { Loadable, usePromise } from "../../utils"
 import ClassificationTask from './ClassificationTask'
 
 const taskViewHashMap = {
-	"classification" : (props) => <ClassificationTask props={props}/>,
+	"classification" : (props) => <ClassificationTask problem={props}/>,
 }
 
 export function Task() {

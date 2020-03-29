@@ -46,7 +46,7 @@ function ClassificationButton({ currentTask, value, timesClicked, setClickedTime
     )
 }
 
-function ClassificationView({ props, value, retry, setClickedTimes, numberOfTimesClicked }) {
+function ClassificationView({ value, retry, setClickedTimes, numberOfTimesClicked }) {
 
     let [currentImageUrl, setImage] = useState()
 
@@ -76,7 +76,7 @@ function ClassificationView({ props, value, retry, setClickedTimes, numberOfTime
         </Col>)
 }
 
-export default function ClassificationTask(props) {
+export default function ClassificationTask({ problem }) {
     /**
      * Classification JSON
      * {
@@ -90,11 +90,12 @@ export default function ClassificationTask(props) {
      */
     
     let [numberOfTimesClicked, setClickedTimes] = useState(0)
-    let { loading, value, retry } = useAsyncRetry(() => db.query("tables/task-view", { include_docs: true }).then(result => result.rows));
+    console.log(problem)
+    let { loading, value, retry } = useAsyncRetry(() => db.query("tables/task-view", { include_docs: true, startkey: [ problem._id ], endkey: [problem._id, {}] }).then(result => result.rows));
 
     return (
         <Loadable loading={loading} loaded={() => <ClassificationView 
-            props={props} 
+            // props={props} 
             value={_.shuffle(value)} 
             retry={retry} 
             numberOfTimesClicked={numberOfTimesClicked}
