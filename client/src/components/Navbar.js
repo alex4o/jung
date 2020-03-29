@@ -41,67 +41,66 @@ export default function Navbar() {
 	let stateNavbarManager = { display: loggedIn ? "" : "none" }
 	let logoutState = { display: loggedIn ? "none" : "" }
 
-	return (
-		<Menu style={{ marginLeft: '10%', marginRight: '10%', display: "flex" }}
-			onClick={handleClick}
-			selectedKeys={[current]}
-			mode="horizontal"
-			theme={theme}>
+	return (<>
+			<Menu style={{ marginLeft: '10%', marginRight: '10%', display: "flex" }}
+				onClick={handleClick}
+				selectedKeys={[current]}
+				mode="horizontal"
+				theme={theme}>
 
-			<Menu.Item key="home">
-				<HomeOutlined />
-				<Link to="/">Home</Link>
-			</Menu.Item>
-			<Menu.Item style={stateNavbarManager} key="tasks">
-				<SettingOutlined />
-				<Link to="/tasks">Tasks</Link>
-			</Menu.Item>
+				<Menu.Item key="home">
+					<HomeOutlined />
+					<Link to="/">Home</Link>
+				</Menu.Item>
+				<Menu.Item style={stateNavbarManager} key="tasks">
+					<SettingOutlined />
+					<Link to="/tasks">Tasks</Link>
+				</Menu.Item>
 
-			<Menu.Item style={stateNavbarManager} key="achievements">
-				<AppstoreOutlined />
-				<Link to="/achievements">Achievements</Link>
-			</Menu.Item>
+				<Menu.Item style={stateNavbarManager} key="achievements">
+					<AppstoreOutlined />
+					<Link to="/achievements">Achievements</Link>
+				</Menu.Item>
 
-			<Menu.Item style={stateNavbarManager} key="profile">
-				<UserOutlined />
-				<Link to="/profile">Profile</Link>
-			</Menu.Item>
-
-
-			<Menu.Item style={{ marginLeft: "auto", ...logoutState }} key="login">
-				<LoginOutlined />
-				<Link to="/login">Log in</Link>
-			</Menu.Item>
-
-			<Menu.Item style={{ ...logoutState }} key="signup">
-				<MailOutlined />
-				<Link to="/register">Sign-up</Link>
-			</Menu.Item>
+				<Menu.Item style={stateNavbarManager} key="profile">
+					<UserOutlined />
+					<Link to="/profile">Profile</Link>
+				</Menu.Item>
 
 
+				<Menu.Item style={{ marginLeft: "auto", ...logoutState }} key="login">
+					<LoginOutlined />
+					<Link to="/login">Log in</Link>
+				</Menu.Item>
 
-			<Menu.Item style={{ marginLeft: "auto", ...stateNavbarManager }}>
-				<UserOutlined />
-				{/* <Row> */}
-				{/* <Link onClick={() => appStore.logout()}>Log out</Link> */}
-				<div style= {{ display: "inline-flex", verticalAlign: "bottom", height: "64px"  }}>
-					<div style={{ display: "flex", flexDirection: "column", position: "relative", lineHeight: "16px", margin: "auto" }}>
-						<span>{username}</span>
-						<span>lvl: {level}
-						</span>
-						<Progress strokeLinecap="square" style={{ position: "absolute", top: "30px" }} strokeWidth={4} percent={100 * progress} size="small" showInfo={false} />
+				<Menu.Item style={{ ...logoutState }} key="signup">
+					<MailOutlined />
+					<Link to="/register">Sign-up</Link>
+				</Menu.Item>
+
+
+				<Menu.Item style={{ marginLeft: "auto", ...stateNavbarManager }}>
+					<UserOutlined />
+					<div style= {{ display: "inline-flex", verticalAlign: "bottom", height: "64px"  }}>
+						<div style={{ display: "flex", flexDirection: "column", position: "relative", lineHeight: "16px", margin: "auto" }}>
+							<span>{username}</span>
+							<span>lvl: {level}</span>
+						</div>
 					</div>
+				</Menu.Item>
 
-				</div>
-			{/* </Row> */}
-			</Menu.Item>
-		<Menu.Item style={{ ...stateNavbarManager }} key="logout">
-			<MailOutlined />
-			<Link onClick={() => appStore.logout()}>Log out</Link>
-		</Menu.Item>
+				<Menu.Item style={{ ...stateNavbarManager }} key="logout">
+					<MailOutlined />
+					<Link onClick={() => appStore.logout()}>Log out</Link>
+				</Menu.Item>
+			</Menu>
 
-
-
-		</Menu >
+			<Progress 
+				strokeLinecap="square"
+				className="levelProgress" 
+				style={{ position: "absolute", zIndex: 100, left:0, top: '50px', ...stateNavbarManager }} 
+				status="active" strokeWidth={4} percent={100 * progress}
+				size="default" showInfo={false} />
+		</>
 	)
 }

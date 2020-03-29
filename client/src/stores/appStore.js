@@ -42,7 +42,7 @@ export default class appStore {
 			this.expToNextLevel = 0
 			this.level = 1
 			this.loggedIn = false;
-			
+
 		} catch (error) {
 			console.error(error)
 		};
