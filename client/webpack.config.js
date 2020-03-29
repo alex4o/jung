@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 module.exports = {
   module: {
@@ -57,6 +58,9 @@ module.exports = {
       base: "/"
     })
   ],
+  output: {
+    path: path.resolve(__dirname, 'docs')
+  },
   devServer: {
     historyApiFallback: true
   }
