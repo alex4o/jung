@@ -13,7 +13,7 @@ import { usePromise } from "../utils"
 import { Task } from './task/Task'
 import { TaskWork } from './task/TaskWork'
 
-import { db, tasks } from "../stores/db"
+import { db } from "../stores/db"
 
 
 
