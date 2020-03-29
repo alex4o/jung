@@ -16,7 +16,7 @@ import useStores from "./hooks/useStores";
 import "./styles/app.less"
 
 import {
-	BrowserRouter as Router,
+	HashRouter as Router,
 	Switch,
 	Route,
 } from "react-router-dom";
