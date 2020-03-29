@@ -59,7 +59,7 @@ module.exports = {
     })
   ],
   output: {
-    path: path.resolve(__dirname, 'docs')
+    path: path.resolve(__dirname, '../docs')
   },
   devServer: {
     historyApiFallback: true
