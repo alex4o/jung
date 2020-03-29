@@ -37,18 +37,21 @@ export default function Profile() {
 
     const { username, level, progress } = useUserData();
 
+    let userAvatar = "https://pngimage.net/wp-content/uploads/2018/05/default-profile-pic-png-8.png"
+    let defaultAvatar = "https://pngimage.net/wp-content/uploads/2018/05/default-profile-pic-png-8.png"
+
     const data = [
         {
-            title: 'Bashar Al Asad',
+            title: 'Alexander Bonin',
         },
         {
-            title: 'Ivo Ushev',
+            title: 'Nikolay Pashov',
         },
         {
-            title: 'Karaman Kurev',
+            title: 'Viktor Velev',
         },
         {
-            title: 'Doncho Minkov',
+            title: 'Lyuben Todorov',
         },
     ];
 
@@ -74,7 +77,7 @@ export default function Profile() {
                     </Row>
                     <Row type="flex" justify="center">
                         <Col>
-                            <Avatar size={128} src="https://ca.slack-edge.com/T0103TLKJBC-U010XLC1A72-eb2c9525d2f0-512" />
+                            <Avatar size={128} src={userAvatar} />
                         </Col>
                     </Row>
                     <Row type="flex" justify="center">
@@ -110,7 +113,7 @@ export default function Profile() {
 
                                                 <List.Item>
                                                     <List.Item.Meta
-                                                        avatar={<Avatar src="https://ca.slack-edge.com/T0103TLKJBC-U010XLC1A72-eb2c9525d2f0-512" />}
+                                                        avatar={<Avatar src={defaultAvatar} />}
                                                         title={<Typography.Text strong style = {{fontSize:'18pt'}}>{item.title}</Typography.Text>}
                                                         description="Achiever"
                                                     />

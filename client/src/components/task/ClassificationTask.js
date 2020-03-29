@@ -9,7 +9,7 @@ import _ from "lodash"
 
 function ClassificationButton({ currentTask, value, timesClicked, setClickedTimes, remove, size, retry }) {
 
-    let [bonus, setBonus] = useState(1)
+    let [bonus, setBonus] = useState(4)
 
     let { appStore } = useStores()
 
@@ -25,7 +25,7 @@ function ClassificationButton({ currentTask, value, timesClicked, setClickedTime
             })
         }
 
-        currentTask.value.doc.labels.push(value)
+        currentTask.value.doc.labels = []
         currentTask.value.doc.timesClassified += 1
         db.put(currentTask.value.doc)
 
@@ -46,14 +46,11 @@ function ClassificationButton({ currentTask, value, timesClicked, setClickedTime
     )
 }
 
-function ClassificationView({ props, value, retry }) {
+function ClassificationView({ props, value, retry, setClickedTimes, numberOfTimesClicked }) {
 
-    let [numberOfTimesClicked, setClickedTimes] = useState(0)
     let [currentImageUrl, setImage] = useState()
 
     const { add, remove, first, last, size } = useQueue(value)
-
-
 
     console.log(size, last, first)
 
@@ -91,10 +88,17 @@ export default function ClassificationTask(props) {
      *     classified: boolean
      * }
      */
-
+    
+    let [numberOfTimesClicked, setClickedTimes] = useState(0)
     let { loading, value, retry } = useAsyncRetry(() => db.query("tables/task-view", { include_docs: true }).then(result => result.rows));
 
     return (
-        <Loadable loading={loading} loaded={() => <ClassificationView props={props} value={_.shuffle(value)} retry={retry} />} />
+        <Loadable loading={loading} loaded={() => <ClassificationView 
+            props={props} 
+            value={_.shuffle(value)} 
+            retry={retry} 
+            numberOfTimesClicked={numberOfTimesClicked}
+            setClickedTimes={setClickedTimes}
+            />} />
     )
 } 

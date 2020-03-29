@@ -3,10 +3,11 @@ import { db } from "../stores/db"
 import { notification } from 'antd'
 
 export default class appStore {
-	@observable username = "Ivan Ivanov"
+	@observable username = "Default User"
 	@observable totalExp = 0
 	@observable expToNextLevel = 0
 	@observable level = 1
+	@observable loggedIn = false;
 
 	constructor() {
 
@@ -16,6 +17,7 @@ export default class appStore {
 		return this.totalExp / (this.expToNextLevel + 1)
 	}
 
+	/** TODO: Write Logout and connect it with the router  */
 	@action async login(username, password) {
 		try {
 			let response = await db.logIn(username, password)
@@ -25,6 +27,7 @@ export default class appStore {
 			this.totalExp = user.totalExp | 0
 			this.expToNextLevel = user.expToNextLevel | 0
 			this.level = user.level | 0
+			this.loggedIn = true;
 		} catch (error) {
 			console.error(error)
 		};
@@ -53,6 +56,5 @@ export default class appStore {
 				expToNextLevel: this.expToNextLevel
 			}
 		})
-
 	}
 }

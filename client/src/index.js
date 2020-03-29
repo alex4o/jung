@@ -10,6 +10,9 @@ import Navbar from "./components/Navbar"
 import Login from "./components/auth/Login"
 import Register from "./components/auth/Register"
 
+import { observer, useObserver } from "mobx-react";
+import useStores from "./hooks/useStores";
+
 import "./styles/app.less"
 
 import {
@@ -21,7 +24,17 @@ import {
 import { Layout, Col, Row } from "antd";
 import { Provider, useLocalStore } from "mobx-react";
 
+function useUserData() {
+    const { appStore } = useStores()
+
+    return useObserver(() => ({
+		loggedIn: appStore.loggedIn
+    }))
+}
+
 export default function Index() {
+
+	const { loggedIn } = useUserData()
 
 	return (
 		<Router>
@@ -37,9 +50,9 @@ export default function Index() {
 					<Row justify="center">
 						<Col span={24} md={20} lg={18} xl={12} style={{ backgroundColor: "#fefefe", padding: "25px"}}>
 							<Switch>
-								<Route path="/profile" component={Profile} />
-								<Route path="/tasks" component={Tasks} />
-								<Route path="/achievements" component={AchievementPage} />
+								<Route path="/profile" component={loggedIn ? Profile : Login} />
+								<Route path="/tasks" component={loggedIn ? Tasks : Login} />
+								<Route path="/achievements" component={loggedIn ? AchievementPage : Login} />
 								<Route path="/login" component={Login}/>
 								<Route path="/register" component={Register}/>
 								<Route path="/" component={App} />
