@@ -33,6 +33,21 @@ export default class appStore {
 		};
 	}
 
+	@action async logout() {
+		try {
+			let response = await db.logOut()
+
+			this.username = "Default User"
+			this.totalExp = 0
+			this.expToNextLevel = 0
+			this.level = 1
+			this.loggedIn = false;
+			
+		} catch (error) {
+			console.error(error)
+		};
+	}
+
 	@action async addExp(exp) {
 
 		console.log("Add exp: ", exp, this)

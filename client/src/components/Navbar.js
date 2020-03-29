@@ -29,7 +29,9 @@ export default function Navbar() {
 
 	let [ current, setCurrent ] = useState('')
 	let [ theme, setTheme ] = useState("dark")
-	/** Todo user stuff */
+
+	/** Todo user progress stuff */
+	const { appStore } = useStores()
 	const { username, level, progress, loggedIn } = useUserData();
 
 	let handleClick = (e) => {
@@ -77,7 +79,7 @@ export default function Navbar() {
 
 				<Menu.Item style={{ float: 'right', ...stateNavbarManager }} key="logout">
 					<MailOutlined />
-					<Link to="/logout">Log out</Link>
+					<Link onClick={() => appStore.logout()}>Log out</Link>
 				</Menu.Item>
 
 		</Menu>
