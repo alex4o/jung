@@ -9,14 +9,14 @@ import {
 	useParams
 } from "react-router-dom";
 
-import { tasks } from "../../stores/db"
+import { db } from "../../stores/db"
 import { Row, Tag, Button, Col, Card, List, PageHeader, Empty, Icon } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 import { Loadable, usePromise } from "../../utils"
 
 export function TaskWork() {
 	let { id } = useParams();
-	let document = usePromise(tasks.get(id))
+	let document = usePromise(db.get(id))
 
 	return <Loadable loading={document.loading}
 		loaded={() =>
