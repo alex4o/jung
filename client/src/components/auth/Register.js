@@ -10,7 +10,7 @@ export default function Register() {
                     metadata: {
                         achievements: [],
                         email: "-1",
-                        level: "1",
+                        level: 1,
                         totalExp: 0,
                         expToNextLevel: 100,
 

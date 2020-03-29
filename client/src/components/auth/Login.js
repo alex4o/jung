@@ -1,44 +1,26 @@
 import React, { useState } from 'react'
 import { Input, Checkbox, Button, Form, Row, Col } from 'antd'
-import { db } from "../../stores/db"
 import { Redirect } from 'react-router-dom';
 import useStores from "../../hooks/useStores";
 import { useObserver } from 'mobx-react';
 
-function useUserData() {
-    const { appStore } = useStores()
-
-    return useObserver(() => ({
-        username: appStore.username,
-        setUsername: appStore.setUsername.bind(appStore)
-    }))
-
-}
 
 export default function Login() {
 
-    let { username, setUsername } = useUserData();
-
+    const { appStore } = useStores()
 
     const onFinish = values => {
-        db.logIn(values.username, values.password, (err, response) => {
-            if (err) {
-                console.log(err);
-            } else {
 
-                setUsername(values.username);
-                setRedirect(true);
-                console.log("yeay");
-            }
-        });
-
+        console.log("Login: ", values)
+        appStore.login(values.username, values.password)
+        setRedirect(true);
     };
+
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
 
     const [redirect, setRedirect] = useState(false);
-
 
     return (
         <div className="login-page">
@@ -78,6 +60,5 @@ export default function Login() {
 
             {redirect ? <Redirect to="/profile" /> : null}
         </div>
-
     )
 }

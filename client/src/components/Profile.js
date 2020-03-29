@@ -13,10 +13,11 @@ function useUserData() {
 
     return useObserver(() => ({
         username: appStore.username,
+        level: appStore.level,
+        progress: appStore.progress
     }))
 
 }
-
 
 function achievementList(list) {
 	return (
@@ -34,27 +35,7 @@ function AchievementSegment({loading, value}) {
 }
 export default function Profile() {
 
-    const { username } = useUserData();
-
-    let [userInfo, setUserInfo] = useState({});
-
-    console.log(username)
-    if (!userInfo.level) {
-
-        db.getUser(username, (err, res) => {
-            if (err) {
-                console.log(err);
-
-            } else {
-                console.log(res);
-                setUserInfo({
-                    level: res.level,
-                    progress: res.totalExp / res.expToNextLevel + 1,
-
-                })
-            }
-        })
-    }
+    const { username, level, progress } = useUserData();
 
     const data = [
         {
@@ -105,12 +86,12 @@ export default function Profile() {
 
                         <Col>
                             <Typography.Text strong style={{ fontSize: '12pt' }}>Lvl. </Typography.Text>
-                            <Typography.Text style={{ fontSize: '16pt' }}>{userInfo.level}</Typography.Text>
+                            <Typography.Text style={{ fontSize: '16pt' }}>{level}</Typography.Text>
 
                         </Col>
                     </Row>
                     <Row type="flex" justify="center">
-                        <Progress style={{ width: '50%' }} showInfo={false} status="active" percent={userInfo.progress} />
+                        <Progress style={{ width: '50%' }} showInfo={false} status="active" percent={100 * progress} />
                     </Row>
                     <Divider />
                     <Row type="flex" justify="start">

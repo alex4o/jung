@@ -3,12 +3,15 @@ import { Row, Col, Button, Divider, notification } from 'antd'
 
 import { usePromise, Loadable } from '../../utils'
 import { db } from '../../stores/db'
+import useStores from "../../hooks/useStores";
+import { useQueue, useAsyncRetry } from 'react-use';
+import _ from "lodash"
 
-let allTasks = []
+function ClassificationButton({ currentTask, value, timesClicked, setClickedTimes, remove, size, retry }) {
 
-function ClassificationButton({ currentTask, value, stateManager, timesClicked, setClickedTimes }) {
+    let [bonus, setBonus] = useState(1)
 
-    let [ bonus, setBonus ] = useState(5)
+    let { appStore } = useStores()
 
     let classify = () => {
         setClickedTimes(timesClicked + 1);
@@ -22,17 +25,19 @@ function ClassificationButton({ currentTask, value, stateManager, timesClicked, 
             })
         }
 
-        let index = Math.floor(Math.random()*100) % allTasks.length
-
         currentTask.value.doc.labels.push(value)
         currentTask.value.doc.timesClassified += 1
         db.put(currentTask.value.doc)
 
-        
-        stateManager(allTasks[index])
+        appStore.addExp(10 + bonus)
+        if (size == 1) {
+            retry()
+        } else {
+            remove()
+        }
     }
 
-    return(
+    return (
         <Col style={{ marginRight: 10 }}>
             <Button onClick={classify} type="primary" shape="round" size="big">
                 {value}
@@ -41,28 +46,35 @@ function ClassificationButton({ currentTask, value, stateManager, timesClicked, 
     )
 }
 
-function ClassificationView({ props, value }) {
+function ClassificationView({ props, value, retry }) {
 
-    let [ currentTask, setCurrentTask ] = useState(value[0])
-    let [ numberOfTimesClicked, setClickedTimes ] = useState(0)
-    let [ currentImageUrl, setImage ] = useState()
+    let [numberOfTimesClicked, setClickedTimes] = useState(0)
+    let [currentImageUrl, setImage] = useState()
 
-    return(
+    const { add, remove, first, last, size } = useQueue(value)
+
+
+
+    console.log(size, last, first)
+
+    return (
         <Col>
             <Row>
                 <img style={{ objectFit: "cover", flex: 1, width: "100%", borderRadius: "15px" }}
-                src={`http://fortress88.servebeer.com:5984/jung/${currentTask.id}/${Object.keys(currentTask.value.doc._attachments)[0]}`}/>
+                    src={`http://fortress88.servebeer.com:5984/jung/${first.id}/${Object.keys(first.value.doc._attachments)[0]}`} />
             </Row>
-            <Divider/>
+            <Divider />
             <Row>
-                {props.classes.map((el, i) => <ClassificationButton 
+                {first.doc.classes.map((el, i) => <ClassificationButton
                     timesClicked={numberOfTimesClicked}
                     setClickedTimes={setClickedTimes}
-                    stateManager={setCurrentTask}
-                    currentTask={currentTask}
-                    key={i} 
+                    currentTask={first}
+                    key={i}
                     value={el}
-                    />)}
+                    remove={remove}
+                    size={size}
+                    retry={retry}
+                />)}
             </Row>
         </Col>)
 }
@@ -79,17 +91,10 @@ export default function ClassificationTask(props) {
      *     classified: boolean
      * }
      */
-    
-    props = {
-        classes: [ "airplane", "car", "boat", "truck" ]
-    }
 
-    let { loading, value } = usePromise(db.query("tables/task-view", { include_docs: true }).then(result => {
-        allTasks = result.rows
-        return result.rows
-    }));
-    
+    let { loading, value, retry } = useAsyncRetry(() => db.query("tables/task-view", { include_docs: true }).then(result => result.rows));
+
     return (
-        <Loadable loading={loading} loaded={() => <ClassificationView props={props} value={value}/>}/>
+        <Loadable loading={loading} loaded={() => <ClassificationView props={props} value={_.shuffle(value)} retry={retry} />} />
     )
 } 
