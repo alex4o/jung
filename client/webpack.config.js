@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 module.exports = {
   module: {
@@ -53,10 +54,13 @@ module.exports = {
       filename: "./index.html",
       meta: {
         viewport: "width=device-width, initial-scale=1, shrink-to-fit=no"
-      },
-      base: "/"
+      }
+      // base: "/"
     })
   ],
+  output: {
+    path: path.resolve(__dirname, '../docs')
+  },
   devServer: {
     historyApiFallback: true
   }
