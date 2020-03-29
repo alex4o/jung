@@ -10,19 +10,15 @@ export default function LandingPage() {
     return(
         <Carousel style={{ fontSize: 60, color: 'white' }} afterChange={onChange} autoplay>
             <div>
-                <h3>Save</h3>
+                <h3>Jung</h3>
             </div>
 
             <div>
-                <h3>Communities</h3>
+                <h3>You can make a difference!</h3>
             </div>
 
             <div>
-                <h3>Save</h3>
-            </div>
-
-            <div>
-                <h3>Business</h3>
+                <h3>Teach computers stuff!</h3>
             </div>
         </Carousel>
     )

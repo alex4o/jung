@@ -45,7 +45,6 @@ export default function Index() {
 				<Layout.Content>
 					<Switch>
 						<Route exact path="/" component={LandingPage} />
-						<Route></Route>
 					</Switch>
 					<Row justify="center">
 						<Col span={24} md={20} lg={18} xl={12} style={{ backgroundColor: "#fefefe", padding: "25px"}}>
@@ -55,7 +54,6 @@ export default function Index() {
 								<Route path="/achievements" component={loggedIn ? AchievementPage : Login} />
 								<Route path="/login" component={Login}/>
 								<Route path="/register" component={Register}/>
-								<Route path="/" component={App} />
 							</Switch>
 						</Col>
 					</Row>
@@ -64,7 +62,6 @@ export default function Index() {
 		</Router>
 	);
 }
-
 
 
 ReactDOM.render(<Index />, document.getElementById("container"));
